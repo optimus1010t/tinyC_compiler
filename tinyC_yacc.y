@@ -1,6 +1,6 @@
 %{
     #include <iostream>
-    #include "ass6_21CS10037_21CS30054_translator.h"
+    #include "tinyC_translator.h"
     using namespace std;
 
     extern int yylex();         

@@ -1,7 +1,7 @@
-BASE=ass6_21CS10037_21CS30054
+BASE=tinyC
 
-tinyC: lex.yy.o $(BASE).tab.o $(BASE)_translator.o $(BASE)_target_translator.o
-	g++ lex.yy.o $(BASE).tab.o $(BASE)_translator.o $(BASE)_target_translator.o -o tinyC
+tinyC: lex.yy.o $(BASE)_yacc.tab.o $(BASE)_translator.o $(BASE)_target_translator.o
+	g++ lex.yy.o $(BASE)_yacc.tab.o $(BASE)_translator.o $(BASE)_target_translator.o -o tinyC
 	@echo "\nMake process successful. The binary generated is tinyC\n"
 
 $(BASE)_target_translator.o: $(BASE)_target_translator.cxx
@@ -14,17 +14,17 @@ $(BASE)_translator.o: $(BASE)_translator.h $(BASE)_translator.cxx
 lex.yy.o: lex.yy.c
 	g++ -c lex.yy.c
 
-$(BASE).tab.o: $(BASE).tab.c
-	g++ -c $(BASE).tab.c
+$(BASE)_yacc.tab.o: $(BASE)_yacc.tab.c
+	g++ -c $(BASE)_yacc.tab.c
 
-lex.yy.c: $(BASE).l $(BASE).tab.h $(BASE)_translator.h
-	flex $(BASE).l
+lex.yy.c: $(BASE)_lex.l $(BASE)_yacc.tab.h $(BASE)_translator.h
+	flex $(BASE)_lex.l
 
-$(BASE).tab.c: $(BASE).y
-	bison -dtv $(BASE).y
+$(BASE)_yacc.tab.c: $(BASE)_yacc.y
+	bison -dtv $(BASE)_yacc.y
 
-$(BASE).tab.h: $(BASE).y
-	bison -dtv $(BASE).y
+$(BASE)_yacc.tab.h: $(BASE)_yacc.y
+	bison -dtv $(BASE)_yacc.y
 
 lib$(BASE).a: $(BASE).o
 	ar -rcs lib$(BASE).a $(BASE).o
@@ -75,8 +75,8 @@ test: tinyC lib$(BASE).a
 	gcc -c test-outputs/$(BASE)_6.s -o test-outputs/$(BASE)_6.o
 	gcc test-outputs/$(BASE)_6.o -o bin/test6 -L. -l$(BASE) -no-pie
 
-	@echo "\nThe three address quads, assembly files and object files are in test-outputs/\n"
-	@echo "The binaries for the test files are in bin/\n"
+	@printf "\nThe three address quads, assembly files and object files are in test-outputs\n"
+	@printf "The binaries for the test files are in bin/\n"
 
 clean:
 	rm -f lex.yy.c *.tab.c *.tab.h *.output *.o *.s *.a *.out *.gch tinyC test-outputs/* bin/*

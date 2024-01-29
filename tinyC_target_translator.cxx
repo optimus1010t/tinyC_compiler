@@ -1,4 +1,4 @@
-#include "ass6_21CS10037_21CS30054_translator.h"
+#include "tinyC_translator.h"
 #include <fstream>
 #include <sstream>
 #include <stack>
@@ -511,7 +511,7 @@ int main(int argc, char* argv[]) {
     ST = &globalST;
     yyparse();
 
-    asmFileName = "ass6_21CS10037_21CS30054_" + string(argv[argc - 1]) + ".s";
+    asmFileName = "tinyC_" + string(argv[argc - 1]) + ".s";
     ofstream sfile;
     sfile.open(asmFileName);
 

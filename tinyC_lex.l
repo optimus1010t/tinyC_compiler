@@ -1,7 +1,7 @@
 %{
     #include <bits/stdc++.h>
-    #include "ass6_21CS10037_21CS30054_translator.h"
-    #include "ass6_21CS10037_21CS30054.tab.h"
+    #include "tinyC_translator.h"
+    #include "tinyC_yacc.tab.h"
 %}
 
 %option yylineno

@@ -1,4 +1,4 @@
-#include "ass6_21CS10037_21CS30054_translator.h"
+#include "tinyC_translator.h"
 #include <iomanip>
 using namespace std;
 
